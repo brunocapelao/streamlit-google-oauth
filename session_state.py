@@ -17,12 +17,19 @@ result:
 """
 
 try:
-    import streamlit.ReportThread as ReportThread
-    from streamlit.server.Server import Server
-except Exception:
-    # Streamlit >= 0.65.0
-    import streamlit.report_thread as ReportThread
+    from streamlit.scriptrunner import get_script_run_ctx
     from streamlit.server.server import Server
+except ModuleNotFoundError:
+    # streamlit < 1.8
+    try:
+        from streamlit.script_run_context import get_script_run_ctx  # type: ignore
+        from streamlit.server.Server import Server
+    except ModuleNotFoundError:
+        # streamlit < 1.4
+        from streamlit.report_thread import (  # type: ignore
+            get_report_ctx as get_script_run_ctx,
+        )
+        from streamlit.server.server import Server
 
 
 class SessionState(object):
@@ -68,7 +75,7 @@ def get(**kwargs):
     """
     # Hack to get the session object from Streamlit.
 
-    ctx = ReportThread.get_report_ctx()
+    ctx = get_script_run_ctx()
 
     this_session = None
 
@@ -81,17 +88,7 @@ def get(**kwargs):
 
     for session_info in session_infos:
         s = session_info.session
-        if (
-                # Streamlit < 0.54.0
-                (hasattr(s, '_main_dg') and s._main_dg == ctx.main_dg)
-                or
-                # Streamlit >= 0.54.0
-                (not hasattr(s, '_main_dg') and s.enqueue == ctx.enqueue)
-                or
-                # Streamlit >= 0.65.2
-                (not hasattr(s,
-                             '_main_dg') and s._uploaded_file_mgr == ctx.uploaded_file_mgr)
-        ):
+        if s.id == ctx.session_id:
             this_session = s
 
     if this_session is None:
