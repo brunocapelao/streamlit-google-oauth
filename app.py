@@ -64,7 +64,7 @@ if __name__ == '__main__':
         except:
             st.write(f'''<h1>
                 <a target="_self"
-                href="{authorization_url}">Login com Google byebnk</a></h1>''',
+                href="{authorization_url}" target="_blank">Login com Google byebnk</a></h1>''',
                      unsafe_allow_html=True)
         else:
             # Verify token is correct:
