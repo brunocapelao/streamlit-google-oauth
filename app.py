@@ -62,8 +62,10 @@ if __name__ == '__main__':
         try:
             code = st.experimental_get_query_params()['code']
         except:
-            if st.button('Login com Google da byebnk'):
-                webbrowser.open(authorization_url)
+            st.write(f'''<h1>
+                <a target="_self"
+                href="{authorization_url}">Login com Google byebnk</a></h1>''',
+                     unsafe_allow_html=True)
         else:
             # Verify token is correct:
             try:
