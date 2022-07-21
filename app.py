@@ -63,8 +63,8 @@ if __name__ == '__main__':
             code = st.experimental_get_query_params()['code']
         except:
             st.write(f'''<h1>
-                <a target="_self"
-                href="{authorization_url}" target="_blank">Login com Google byebnk</a></h1>''',
+                <a target="_blank"
+                href="{authorization_url}">Login com Google byebnk</a></h1>''',
                      unsafe_allow_html=True)
         else:
             # Verify token is correct:
@@ -76,7 +76,7 @@ if __name__ == '__main__':
             except:
                 st.write(f'''<h1>
                     This account is not allowed or page was refreshed.
-                    Please try again: <a target="_self"
+                    Please try again: <a target="_blank"
                     href="{authorization_url}">url</a></h1>''',
                          unsafe_allow_html=True)
             else:
@@ -85,7 +85,7 @@ if __name__ == '__main__':
                     if token.is_expired():
                         st.write(f'''<h1>
                         Login session has ended,
-                        please <a target="_self" href="{authorization_url}">
+                        please <a target="_blank" href="{authorization_url}">
                         login</a> again.</h1>
                         ''')
                 else:
