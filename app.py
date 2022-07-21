@@ -6,6 +6,10 @@ import webbrowser
 from session_state import get
 from httpx_oauth.clients.google import GoogleOAuth2
 
+from multipage import MultiPage
+from multipages import csvtizador # import your pages here
+
+
 
 async def write_authorization_url(client,
                                   redirect_uri):
@@ -32,10 +36,9 @@ async def get_email(client,
 
 def main(user_id, user_email):
     st.sidebar.write(f"You're logged in as {user_email}")
-    add_selectbox = st.sidebar.radio(
-        "",
-        ("Email", "Home phone", "Mobile phone")
-    )
+    app = MultiPage()
+    app.add_page("CSVtizador", csvtizador.app)
+    app.run()
 
 
 if __name__ == '__main__':
@@ -53,7 +56,6 @@ if __name__ == '__main__':
     page_icon="👋",
     )
     st.image('https://byebnk.com/wp-content/uploads/2021/12/byebnk_completo_fundo_preto_small-2.png', width=150)
-    st.title('Streamlit - byebnk')
     
     session_state = get(token=None)
     if session_state.token is None:
