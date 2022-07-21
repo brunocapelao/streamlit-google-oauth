@@ -44,9 +44,13 @@ if __name__ == '__main__':
         write_authorization_url(client=client,
                                 redirect_uri=redirect_uri)
     )
+    st.set_page_config(
+    page_title="Streamlit - byebnk",
+    page_icon="👋",
+    )
     st.image('https://byebnk.com/wp-content/uploads/2021/12/byebnk_completo_fundo_preto_small-2.png', width=150)
-    st.title('CSVtizador - V1')
-    st.subheader('Gambiarra que FUNCIONA!')
+    st.title('Streamlit - byebnk')
+    
     session_state = get(token=None)
     if session_state.token is None:
         try:
