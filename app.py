@@ -63,7 +63,7 @@ if __name__ == '__main__':
             code = st.experimental_get_query_params()['code']
         except:
             if st.button('Login com Google da byebnk'):
-                webbrowser.open_new_tab(authorization_url)
+                webbrowser.open(authorization_url)
         else:
             # Verify token is correct:
             try:
