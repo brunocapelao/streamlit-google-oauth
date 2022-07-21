@@ -31,7 +31,11 @@ async def get_email(client,
 
 
 def main(user_id, user_email):
-    st.write(f"You're logged in as {user_email}")
+    st.sidebar.write(f"You're logged in as {user_email}")
+    add_selectbox = st.sidebar.radio(
+        "",
+        ("Email", "Home phone", "Mobile phone")
+    )
 
 
 if __name__ == '__main__':
@@ -93,3 +97,4 @@ if __name__ == '__main__':
     else:
         main(user_id=session_state.user_id,
              user_email=session_state.user_email)
+        
